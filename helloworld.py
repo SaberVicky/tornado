@@ -2,7 +2,6 @@
 import tornado.ioloop
 import tornado.web
 import json
-import MySQLdb
 import os
 
 class MainHandler(tornado.web.RequestHandler):
@@ -18,12 +17,7 @@ class MainHandler(tornado.web.RequestHandler):
     		"b" : b,
             "ret" : 1
     	}
-        
-        db = MySQLdb.connect("127.0.0.1","root","","test")
-        cursor = db.cursor();
-        sql = "INSERT INTO T_Jokes(content, answer) VALUES ('%s', '%s')"  % (a, b)
-        cursor.execute(sql)
-        db.commit()
+
 
 
         self.write(json.dumps(result))
