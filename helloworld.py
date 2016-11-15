@@ -20,8 +20,8 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 
-#        self.write(json.dumps(result))
-self.write("欢迎访问有金水产，该网站正在建设中，请稍后访问。。。")
+        self.write("欢迎访问有金水产，该网站正在建设中，请稍后访问。。。")
+            
 
 
 class TestHandler(tornado.web.RequestHandler):
