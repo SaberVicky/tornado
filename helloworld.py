@@ -2,11 +2,12 @@
 import tornado.ioloop
 import tornado.web
 import json
+import MySQLdb
 import os
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("123/index.html")
+        self.render("youjin/index.html")
 #    	a = self.get_argument('content', None)
 #    	b = self.get_argument('answer', None)
 #        
@@ -18,11 +19,15 @@ class MainHandler(tornado.web.RequestHandler):
 #    		"b" : b,
 #            "ret" : 1
 #    	}
+#        
+#        db = MySQLdb.connect("127.0.0.1","root","","test")
+#        cursor = db.cursor();
+#        sql = "INSERT INTO T_Jokes(content, answer) VALUES ('%s', '%s')"  % (a, b)
+#        cursor.execute(sql)
+#        db.commit()
 #
 #
-#
-#        self.write("欢迎访问有金水产，该网站正在建设中，请稍后访问。。。")
-
+#        self.write(json.dumps(result))
 
 
 class TestHandler(tornado.web.RequestHandler):
