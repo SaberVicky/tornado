@@ -6,22 +6,23 @@ import os
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-    	a = self.get_argument('content', None)
-    	b = self.get_argument('answer', None)
-        
-    	result = {
-            "data" : "data",
-    		"code" : 200,
-    		"msg" : "success",
-    		"a" : a,
-    		"b" : b,
-            "ret" : 1
-    	}
+        self.render("123/index.html")
+#    	a = self.get_argument('content', None)
+#    	b = self.get_argument('answer', None)
+#        
+#    	result = {
+#            "data" : "data",
+#    		"code" : 200,
+#    		"msg" : "success",
+#    		"a" : a,
+#    		"b" : b,
+#            "ret" : 1
+#    	}
+#
+#
+#
+#        self.write("欢迎访问有金水产，该网站正在建设中，请稍后访问。。。")
 
-
-
-        self.write("欢迎访问有金水产，该网站正在建设中，请稍后访问。。。")
-            
 
 
 class TestHandler(tornado.web.RequestHandler):
