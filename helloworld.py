@@ -32,7 +32,7 @@ class MainHandler(tornado.web.RequestHandler):
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write(json.dumps("啦啦啦")) 
+        self.write("啦啦啦") 
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "static")
