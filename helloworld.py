@@ -32,14 +32,14 @@ class MainHandler(tornado.web.RequestHandler):
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("123/main.html") 
+        self.write(json.dumps("啦啦啦")) 
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "static")
 }
 
 application = tornado.web.Application([
-    (r"/123", TestHandler),
+    (r"/rz", TestHandler),
     (r"/", MainHandler),
     (r"/(apple-touch-icon\.png)", tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
 ], **settings)
