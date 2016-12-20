@@ -29,10 +29,13 @@ class MainHandler(tornado.web.RequestHandler):
 #
 #        self.write(json.dumps(result))
 
+class JqueryHanlder(tornado.web.RequestHandler):
+    def get(self):
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("啦啦啦") 
+        self.render("youjin/juqery.html")
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "static")
@@ -41,6 +44,7 @@ settings = {
 application = tornado.web.Application([
     (r"/rz", TestHandler),
     (r"/", MainHandler),
+    (r"/jquery", JqueryHanlder),
     (r"/(apple-touch-icon\.png)", tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
 ], **settings)
 
