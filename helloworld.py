@@ -31,11 +31,11 @@ class MainHandler(tornado.web.RequestHandler):
 
 class JqueryHanlder(tornado.web.RequestHandler):
     def get(self):
+        self.render("youjin/juqery.html")
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("啦啦啦") 
-        self.render("youjin/juqery.html")
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "static")
