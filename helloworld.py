@@ -35,13 +35,24 @@ class JqueryHanlder(tornado.web.RequestHandler):
 
 class TestHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("啦啦啦") 
+        self.write("啦啦啦")
+
+class RegisterHandler(tornado.web.RequestHandler):
+    def post(self):
+        self.get_argument('user_account', None)
+        self.get_argument('user_password', None)
+        result = {
+            "ret" : 1,
+            "msg" : "success"
+        }
+        self.write(json.dumps(result))
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "static")
 }
 
 application = tornado.web.Application([
+    (r"/register", RegisterHandler),
     (r"/rz", TestHandler),
     (r"/", MainHandler),
     (r"/jquery", JqueryHanlder),
