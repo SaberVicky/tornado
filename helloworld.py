@@ -39,13 +39,33 @@ class TestHandler(tornado.web.RequestHandler):
 
 class RegisterHandler(tornado.web.RequestHandler):
     def post(self):
-        self.get_argument('user_account', None)
-        self.get_argument('user_password', None)
-        result = {
+        a = self.get_argument('user_account', None)
+        b = self.get_argument('user_password', None)
+
+        db = MySQLdb.connect("127.0.0.1","root","","test")
+        cursor = db.cursor();
+        sql1 = "select count(*) from T_User where user_account = '%s'" % a
+        cursor.execute(sql1)
+        count = cursor.fetchone()[0]
+        if count > 0:
+            result = {
+            "ret" : 0,
+            "count" : count,
+            "msg" : "该账号已经被注册"
+            }
+        else:
+            result = {
             "ret" : 1,
-            "msg" : "success"
-        }
+            "count" : count,
+            "msg" : "注册成功"
+            }
+            sql = "INSERT INTO T_User(user_account, user_password) VALUES ('%s', '%s')"  % (a, b)
+            cursor.execute(sql)
+
+        db.commit()
+        db.close()  
         self.write(json.dumps(result))
+        
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "static")
