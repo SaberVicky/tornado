@@ -37,6 +37,34 @@ class TestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("啦啦啦")
 
+class LoginHandler(tornado.web.RequestHandler):
+    def post(self):
+        a = self.get_argument('user_account', None)
+        b = self.get_argument('user_password', None)
+
+        db = MySQLdb.connect("127.0.0.1","root","sl2887729","test")
+        cursor = db.cursor();
+        sql1 = "select count(*) from T_User where user_account = '%s' and user_password = '%s'" % (a, b)
+        cursor.execute(sql1)
+        count = cursor.fetchone()[0]
+        db.commit()
+        db.close()
+        self.write(json.dumps(result))
+        if count == 1:
+            result = {
+            "ret" : 1,
+            "msg" : "登录成功"
+            }
+        else:
+            result = {
+            "ret" : 0,
+            "msg" : "登录失败"
+            }
+
+        elf.write(json.dumps(result))
+
+
+
 class RegisterHandler(tornado.web.RequestHandler):
     def post(self):
         a = self.get_argument('user_account', None)
@@ -73,6 +101,7 @@ settings = {
 
 application = tornado.web.Application([
     (r"/register", RegisterHandler),
+    (r"/login", LoginHandler),
     (r"/rz", TestHandler),
     (r"/", MainHandler),
     (r"/jquery", JqueryHanlder),
