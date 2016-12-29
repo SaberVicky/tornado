@@ -49,7 +49,7 @@ class LoginHandler(tornado.web.RequestHandler):
         count = cursor.fetchone()[0]
         db.commit()
         db.close()
-        self.write(json.dumps(result))
+        
         if count == 1:
             result = {
             "ret" : 1,
