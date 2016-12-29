@@ -61,7 +61,7 @@ class LoginHandler(tornado.web.RequestHandler):
             "msg" : "登录失败"
             }
 
-        elf.write(json.dumps(result))
+        self.write(json.dumps(result))
 
 
 
