@@ -4,6 +4,7 @@ import tornado.web
 import json
 import MySQLdb
 import os
+import time
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -37,6 +38,26 @@ class TestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("啦啦啦")
 
+class PublishHandler(tornado.web.RequestHandler):
+    def get(self):
+
+        text = self.get_argument('publish_text', None)
+        account = self.get_argument('user_account', None)
+        time = time.time()
+
+        db = MySQLdb.connect("127.0.0.1","root","sl2887729","test")
+        cursor = db.cursor()
+        sql = "INSERT INTO T_Publish_Text(user_account, publish_content, publish_time) VALUES ('%s', '%s', '%s')"  % (account, text, time)
+        cursor.execute(sql)
+        db.commit()
+        db.close()
+
+        result = {
+            "ret" : 1,
+            "msg" : "发布成功"
+        }
+        self.write(json.dumps(result))
+
 class LoginHandler(tornado.web.RequestHandler):
     def post(self):
         a = self.get_argument('user_account', None)
@@ -49,6 +70,7 @@ class LoginHandler(tornado.web.RequestHandler):
         count = cursor.fetchone()[0]
         db.commit()
         db.close()
+
         
         if count == 1:
             result = {
@@ -100,6 +122,7 @@ settings = {
 }
 
 application = tornado.web.Application([
+    (r"/publish", PublishHandler),
     (r"/register", RegisterHandler),
     (r"/login", LoginHandler),
     (r"/rz", TestHandler),
